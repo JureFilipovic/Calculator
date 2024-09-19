@@ -2,7 +2,7 @@ function add (a, b) {
     return a + b;
 }
 
-function substract (a, b) {
+function subtract (a, b) {
     return a - b;
 }
 
@@ -17,7 +17,7 @@ function divide (a, b) {
 const log = console.log;
 
 // log (add (4.6, 2));
-// log (substract (4.5, 2));
+// log (subtract (4.5, 2));
 // log (multiply (4.2, 2));
 // log (divide (5, 2));
 
@@ -31,7 +31,7 @@ function operate (a, b, operator) {
             return add (a, b);
         
         case "-":
-            return substract (a, b);
+            return subtract (a, b);
 
         case "*":
             return multiply (a, b);
