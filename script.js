@@ -49,6 +49,7 @@ const digitButtons = document.querySelectorAll(".digits .digitButton");
 const operationButtons = document.querySelectorAll (".operations .operationButton");
 const controlButtons = document.querySelectorAll (".controls .controlButton");
 const inputOutputField = document.querySelector (".inputOutputField");
+const dotButton = document.querySelector (".digits .dot");
 
 let firstNumber = "";
 let secondNumber = "";
@@ -62,15 +63,32 @@ digitButtons.forEach (button => {
             inputOutputField.value = "";
             isOperation = false;
         }
-        
-        if (operation === "") {
-            firstNumber += button.textContent;
+
+        if (button.textContent === ".") {
+            if (inputOutputField.value.includes (".")) return;
             inputOutputField.value += button.textContent;
 
+            if (operation === "") {
+                firstNumber += button.textContent;
+    
+            } else {
+                secondNumber += button.textContent;
+            }
+
+            dotButton.disabled = true;
+
         } else {
-            secondNumber += button.textContent;
-            inputOutputField.value += button.textContent;
+            if (operation === "") {
+                firstNumber += button.textContent;
+                inputOutputField.value += button.textContent;
+    
+            } else {
+                secondNumber += button.textContent;
+                inputOutputField.value += button.textContent;
+            }
         }
+        
+        
     });
 });
 
@@ -96,6 +114,7 @@ operationButtons.forEach (button => {
 
         operation = button.textContent;
         isOperation = true;
+        dotButton.disabled = false;
     });
 });
 
@@ -113,6 +132,7 @@ controlButtons.forEach (button => {
                     secondNumber = "";
                     operation = "";
                     isOperation = false;
+                    dotButton.disabled = false;
 
                 } else {
                     result = formatResult (tempResult);
@@ -121,6 +141,7 @@ controlButtons.forEach (button => {
                     secondNumber = "";
                     operation = "";
                     isOperation = false;
+                    dotButton.disabled = false;
                 }
             }
 
@@ -130,6 +151,22 @@ controlButtons.forEach (button => {
             secondNumber = "";
             operation = "";
             isOperation = false;
+            dotButton.disabled = false;
+
+        } else if (button.textContent === "←") {
+            if (operation === "") {
+                firstNumber = firstNumber.slice (0, -1);
+                inputOutputField.value = inputOutputField.value.slice (0, -1);
+
+            } else {
+                secondNumber = secondNumber.slice (0, -1);
+                inputOutputField.value = inputOutputField.value.slice (0, -1);
+            }
+
+            if (!inputOutputField.value.includes (".")) {
+                dotButton.disabled = false;
+            }
+
         }
     });
 });
